@@ -10,7 +10,7 @@ app.get('/driving', async (req, res) => {
 
   try {
     const result = await axios.get(
-      `https://maps.apigw.ntruss.com/map-direction/v1/driving?start=${start}&goal=${goal}`,
+      `https://maps.apigw.ntruss.com/map-direction/v1/driving?goal=${goal}&start=${start}`,
       {
         headers: {
           'X-NCP-APIGW-API-KEY-ID': process.env.NCP_APIGW_API_KEY_ID,
