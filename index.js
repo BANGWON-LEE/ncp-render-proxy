@@ -9,12 +9,6 @@ app.get('/driving', async (req, res) => {
   const { start, goal } = req.query
 
   try {
-    console.log(
-      'dot',
-      process.env.NCP_APIGW_API_KEY_ID,
-      '<===>',
-      process.env.NCP_APIGW_API_KEY
-    )
     const result = await axios.get(
       `https://maps.apigw.ntruss.com/map-direction/v1/driving?goal=${goal}&start=${start}`,
       {
@@ -25,9 +19,11 @@ app.get('/driving', async (req, res) => {
       }
     )
 
+    const route = result.data.route?.traoptimal?.[0]
+
     res.json({
-      summary: route?.traoptimal?.[0]?.summary,
-      path: route?.traoptimal?.[0]?.path,
+      summary: route?.summary,
+      path: route?.path,
     })
   } catch (err) {
     console.error('[DRIVING ERROR]', err.response?.data || err.message)
