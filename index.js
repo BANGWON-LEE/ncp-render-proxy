@@ -1,9 +1,15 @@
 const express = require('express')
 const axios = require('axios')
-// require('dotenv').config()
+const compression = require('compression')
 
 const app = express()
+app.use(compression()) // gzip 압축 적용
 const PORT = process.env.PORT || 3000
+
+// 간단한 경로 압축 함수
+function downsamplePath(path, step = 10) {
+  return path.filter((_, idx) => idx % step === 0)
+}
 
 app.get('/driving', async (req, res) => {
   const { start, goal } = req.query
@@ -20,10 +26,19 @@ app.get('/driving', async (req, res) => {
     )
 
     const route = result.data.route?.traoptimal?.[0]
+    const fullPath = route.path || []
+    const simplifiedPath = downsamplePath(fullPath, 10)
+
+    const summary = {
+      distance: route.summary?.distance,
+      duration: route.summary?.duration,
+      start: route.summary?.start,
+      goal: route.summary?.goal,
+    }
 
     res.json({
-      summary: route?.summary,
-      path: route?.path,
+      summary,
+      path: simplifiedPath,
     })
   } catch (err) {
     console.error('[DRIVING ERROR]', err.response?.data || err.message)
@@ -32,11 +47,6 @@ app.get('/driving', async (req, res) => {
       detail: err.response?.data || err.message,
     })
   }
-})
-
-app.get('/my-ip', async (req, res) => {
-  const result = await axios.get('https://api64.ipify.org?format=json')
-  res.json(result.data) // 예: { ip: "44.226.122.3" }
 })
 
 app.listen(PORT, () => {
