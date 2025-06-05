@@ -34,7 +34,7 @@ app.get('/driving', async (req, res) => {
 
     const route = result.data.route?.traoptimal?.[0]
     const fullPath = route.path || []
-    const simplifiedPath = downsamplePath(fullPath, 10)
+    const simplified = downsamplePath(fullPath, 10)
 
     const summary = {
       distance: route.summary?.distance,
