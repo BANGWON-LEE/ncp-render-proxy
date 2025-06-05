@@ -21,7 +21,11 @@ app.get('/driving', async (req, res) => {
 
     res.json(result.data)
   } catch (err) {
-    res.status(500).json({ message: '프록시 서버 오류', detail: err.message })
+    console.error('[DRIVING ERROR]', err.response?.data || err.message)
+    res.status(500).json({
+      message: '프록시 서버 오류',
+      detail: err.response?.data || err.message,
+    })
   }
 })
 
