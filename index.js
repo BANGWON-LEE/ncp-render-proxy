@@ -19,8 +19,8 @@ app.get('/driving', async (req, res) => {
       `https://maps.apigw.ntruss.com/map-direction/v1/driving?goal=${goal}&start=${start}`,
       {
         headers: {
-          'X-NCP-APIGW-API-KEY-ID': process.env.NCP_APIGW_API_KEY_ID,
-          'X-NCP-APIGW-API-KEY': process.env.NCP_APIGW_API_KEY,
+          'x-ncp-apigw-api-key-id': process.env.NCP_APIGW_API_KEY_ID,
+          'Xx-ncp-apigw-api-key': process.env.NCP_APIGW_API_KEY,
         },
       }
     )
