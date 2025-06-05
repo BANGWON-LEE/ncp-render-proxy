@@ -20,7 +20,7 @@ app.get('/driving', async (req, res) => {
       {
         headers: {
           'x-ncp-apigw-api-key-id': process.env.NCP_APIGW_API_KEY_ID,
-          'Xx-ncp-apigw-api-key': process.env.NCP_APIGW_API_KEY,
+          'x-ncp-apigw-api-key': process.env.NCP_APIGW_API_KEY,
         },
       }
     )
