@@ -25,7 +25,10 @@ app.get('/driving', async (req, res) => {
       }
     )
 
-    res.json(result.data)
+    res.json({
+      summary: route?.traoptimal?.[0]?.summary,
+      path: route?.traoptimal?.[0]?.path,
+    })
   } catch (err) {
     console.error('[DRIVING ERROR]', err.response?.data || err.message)
     res.status(500).json({
