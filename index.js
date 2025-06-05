@@ -11,6 +11,13 @@ function downsamplePath(path, step = 10) {
   return path.filter((_, idx) => idx % step === 0)
 }
 
+function reducePrecision(path) {
+  return path.map(([lng, lat]) => [
+    parseFloat(lng.toFixed(3)),
+    parseFloat(lat.toFixed(3)),
+  ])
+}
+
 app.get('/driving', async (req, res) => {
   const { start, goal } = req.query
 
@@ -35,10 +42,11 @@ app.get('/driving', async (req, res) => {
       start: route.summary?.start,
       goal: route.summary?.goal,
     }
+    const reduced = reducePrecision(simplified)
 
     res.json({
       summary,
-      path: simplifiedPath,
+      path: reduced,
     })
   } catch (err) {
     console.error('[DRIVING ERROR]', err.response?.data || err.message)
