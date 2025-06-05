@@ -1,6 +1,6 @@
 const express = require('express')
 const axios = require('axios')
-require('dotenv').config()
+// require('dotenv').config()
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -9,6 +9,12 @@ app.get('/driving', async (req, res) => {
   const { start, goal } = req.query
 
   try {
+    console.log(
+      'dot',
+      process.env.NCP_APIGW_API_KEY_ID,
+      '<===>',
+      process.env.NCP_APIGW_API_KEY
+    )
     const result = await axios.get(
       `https://maps.apigw.ntruss.com/map-direction/v1/driving?goal=${goal}&start=${start}`,
       {
