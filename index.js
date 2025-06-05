@@ -6,9 +6,11 @@ const app = express()
 app.use(compression()) // gzip 압축 적용
 const PORT = process.env.PORT || 3000
 
-// 간단한 경로 압축 함수
-function downsamplePath(path, step = 10) {
-  return path.filter((_, idx) => idx % step === 0)
+function downsamplePath(path, max = 50) {
+  if (!Array.isArray(path) || path.length <= max) return path
+
+  const step = Math.ceil(path.length / max)
+  return path.filter((_, index) => index % step === 0)
 }
 
 function reducePrecision(path) {
