@@ -25,6 +25,11 @@ app.get('/driving', async (req, res) => {
   }
 })
 
+app.get('/my-ip', async (req, res) => {
+  const result = await axios.get('https://api64.ipify.org?format=json')
+  res.json(result.data) // 예: { ip: "44.226.122.3" }
+})
+
 app.listen(PORT, () => {
   console.log(`Proxy server running on ${PORT}`)
 })
