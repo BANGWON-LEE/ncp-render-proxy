@@ -46,8 +46,8 @@ app.get('/driving', async (req, res) => {
     }
     const reduced = reducePrecision(simplified)
 
-    const result = res.json({ ...summary, path: reduced })
-    console.log('result', result)
+    const result2 = res.json({ ...summary, path: reduced })
+    console.log('result', result2)
 
     res.json({
       ...summary,
