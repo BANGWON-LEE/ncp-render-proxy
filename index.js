@@ -23,6 +23,8 @@ function reducePrecision(path) {
 app.get('/driving', async (req, res) => {
   const { start, goal } = req.query
 
+  console.log('shoot', start, goal)
+
   try {
     const result = await axios.get(
       `https://maps.apigw.ntruss.com/map-direction/v1/driving?goal=${goal}&start=${start}`,
@@ -46,8 +48,8 @@ app.get('/driving', async (req, res) => {
     }
     const reduced = reducePrecision(simplified)
 
-    const result2 = res.json({summary, path: reduced })
-    console.log('result', result2)
+    const result2 = res.json({ summary, path: reduced })
+    // console.log('result', result2)
 
     res.json({
       summary,
