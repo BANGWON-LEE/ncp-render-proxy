@@ -16,8 +16,8 @@ function downsamplePath(path, max = 50) {
 
 function reducePrecision(path) {
   return path.map(([lng, lat]) => [
-    parseFloat(lng.toFixed(2)),
-    parseFloat(lat.toFixed(2)),
+    parseFloat(lng.toFixed(3)),
+    parseFloat(lat.toFixed(3)),
   ])
 }
 app.disable('x-powered-by')
@@ -41,7 +41,7 @@ app.get('/driving', async (req, res) => {
 
     const route = result.data.route?.traoptimal?.[0]
     const fullPath = route.path || []
-    const simplified = downsamplePath(fullPath, 6)
+    const simplified = downsamplePath(fullPath, 15)
 
     const summary = {
       distance: route.summary?.distance,
@@ -51,7 +51,7 @@ app.get('/driving', async (req, res) => {
     }
     const reduced = reducePrecision(simplified)
 
-    return res.json({
+    res.json({
       summary,
       path: reduced,
     })
