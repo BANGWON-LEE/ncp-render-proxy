@@ -24,10 +24,6 @@ app.disable('x-powered-by')
 app.get('/driving', async (req, res) => {
   const { start, goal } = req.query
 
-  console.log('shoot', start, goal)
-  console.log('[ENV] API_KEY_ID:', process.env.NCP_APIGW_API_KEY_ID)
-  console.log('[ENV] API_KEY:', process.env.NCP_APIGW_API_KEY)
-
   try {
     const result = await axios.get(
       `https://maps.apigw.ntruss.com/map-direction/v1/driving?goal=${goal}&start=${start}`,
@@ -41,7 +37,7 @@ app.get('/driving', async (req, res) => {
 
     const route = result.data.route?.traoptimal?.[0]
     const fullPath = route.path || []
-    const simplified = downsamplePath(fullPath, 15)
+    const simplified = downsamplePath(fullPath, 20)
 
     const summary = {
       distance: route.summary?.distance,
