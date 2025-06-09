@@ -3,7 +3,7 @@ const axios = require('axios')
 const compression = require('compression')
 
 const app = express()
-app.disable('x-powered-by')
+
 app.use(compression()) // gzip 압축 적용
 const PORT = process.env.PORT || 3000
 
@@ -16,11 +16,11 @@ function downsamplePath(path, max = 50) {
 
 function reducePrecision(path) {
   return path.map(([lng, lat]) => [
-    parseFloat(lng.toFixed(3)),
-    parseFloat(lat.toFixed(3)),
+    parseFloat(lng.toFixed(2)),
+    parseFloat(lat.toFixed(2)),
   ])
 }
-
+app.disable('x-powered-by')
 app.get('/driving', async (req, res) => {
   const { start, goal } = req.query
 
@@ -41,7 +41,7 @@ app.get('/driving', async (req, res) => {
 
     const route = result.data.route?.traoptimal?.[0]
     const fullPath = route.path || []
-    const simplified = downsamplePath(fullPath, 10)
+    const simplified = downsamplePath(fullPath, 6)
 
     const summary = {
       distance: route.summary?.distance,
