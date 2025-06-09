@@ -3,6 +3,7 @@ const axios = require('axios')
 const compression = require('compression')
 
 const app = express()
+app.disable('x-powered-by')
 app.use(compression()) // gzip 압축 적용
 const PORT = process.env.PORT || 3000
 
