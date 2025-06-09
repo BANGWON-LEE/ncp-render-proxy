@@ -24,6 +24,8 @@ app.get('/driving', async (req, res) => {
   const { start, goal } = req.query
 
   console.log('shoot', start, goal)
+  console.log('[ENV] API_KEY_ID:', !!process.env.NCP_APIGW_API_KEY_ID)
+  console.log('[ENV] API_KEY:', !!process.env.NCP_APIGW_API_KEY)
 
   try {
     const result = await axios.get(
