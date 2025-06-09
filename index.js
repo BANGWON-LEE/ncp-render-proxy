@@ -50,10 +50,10 @@ app.get('/driving', async (req, res) => {
     }
     const reduced = reducePrecision(simplified)
 
-    res.json({
+    return {
       summary,
       path: reduced,
-    })
+    }
   } catch (err) {
     console.error('[DRIVING ERROR]', err.response?.data || err.message)
     res.status(500).json({
