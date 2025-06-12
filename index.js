@@ -73,22 +73,23 @@ app.get('/walking', async (req, res) => {
       }
     )
 
-    const route = result.data.route?.traoptimal?.[0]
-    const fullPath = route.path || []
-    const simplified = downsamplePath(fullPath, 200)
+    // const route = result.data.route?.traoptimal?.[0]
+    // const fullPath = route.path || []
+    // const simplified = downsamplePath(fullPath, 200)
 
-    const summary = {
-      distance: route.summary?.distance,
-      duration: route.summary?.duration,
-      start: route.summary?.start,
-      goal: route.summary?.goal,
-    }
-    const reduced = reducePrecision(simplified)
+    // const summary = {
+    //   distance: route.summary?.distance,
+    //   duration: route.summary?.duration,
+    //   start: route.summary?.start,
+    //   goal: route.summary?.goal,
+    // }
+    // const reduced = reducePrecision(simplified)
 
-    res.json({
-      summary,
-      path: reduced,
-    })
+    // res.json({
+    //   summary,
+    //   path: reduced,
+    // })
+    res.json({ result })
   } catch (err) {
     console.error('[DRIVING ERROR]', err.response?.data || err.message)
     res.status(500).json({
