@@ -64,7 +64,7 @@ app.get('/walking', async (req, res) => {
 
   try {
     const result = await axios.get(
-      `https://maps.apigw.ntruss.com/map-direction/v1/walking?goal=${goal}&start=${start}`,
+      `https://maps.apigw.ntruss.com/map-direction/v1/walking?start=${start}&goal=${goal}`,
       {
         headers: {
           'x-ncp-apigw-api-key-id': process.env.NCP_APIGW_API_KEY_ID,
