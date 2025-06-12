@@ -89,8 +89,8 @@ app.get('/walking', async (req, res) => {
     //   summary,
     //   path: reduced,
     // })
-    console.log('걷기', result)
-    res.json({ result })
+    console.log('걷기', result.data)
+    res.json(result.data)
   } catch (err) {
     console.error('[DRIVING ERROR]', err.response?.data || err.message)
     res.status(500).json({
